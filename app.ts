@@ -22,13 +22,6 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-  app.get("*", (request, response) => {
-    response.sendFile(path.join(__dirname, "client/build", "index.html"));
-  });
-}
-
 // Converts incoming json data to js object ---- Body parser that reads data from body into req.body
 app.use(express.json({ limit: "10kb" })); // package will parse 10kb into meaningful data
 
@@ -72,3 +65,10 @@ app.use("/api", authRoute, userRoute);
 app.use("/images", imagesController);
 app.use("/uploads", express.static("uploads"));
 app.use(globalErrorHandler);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (request, response) => {
+    response.sendFile(path.join(__dirname, "client/build", "index.html"));
+  });
+}

@@ -35,8 +35,6 @@ imagesController.post(
   upload.single("image"),
   async (req, res, next) => {
     if (req.session) {
-      console.log(req.session.user._id);
-
       const user = await Users.findByIdAndUpdate(
         req.session.user._id,
         {
@@ -46,7 +44,6 @@ imagesController.post(
         },
         { new: true, upsert: true }
       );
-      console.log("user", user);
       if (req.session) {
         req.session.loggedIn = true;
         req.session.user = user;
