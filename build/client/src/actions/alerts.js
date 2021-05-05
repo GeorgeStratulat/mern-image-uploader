@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.resetAlert = exports.setAlert = exports.AlertType = void 0;
-var types_1 = require("./types");
+const types_1 = require("./types");
 var AlertType;
 (function (AlertType) {
     AlertType["success"] = "success";
@@ -9,16 +9,16 @@ var AlertType;
     AlertType["info"] = "info";
     AlertType["warning"] = "warning";
 })(AlertType = exports.AlertType || (exports.AlertType = {}));
-var setAlert = function (msg, alertType) { return function (dispatch) {
+const setAlert = (msg, alertType) => (dispatch) => {
     dispatch({
         type: types_1.ActionTypes.alert,
-        payload: { msg: msg, alertType: alertType }
+        payload: { msg, alertType }
     });
-}; };
+};
 exports.setAlert = setAlert;
-var resetAlert = function () { return function (dispatch) {
+const resetAlert = () => (dispatch) => {
     dispatch({
         type: types_1.ActionTypes.resetAlert
     });
-}; };
+};
 exports.resetAlert = resetAlert;

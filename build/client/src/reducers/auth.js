@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authReducer = void 0;
-var actions_1 = require("../actions");
-var initialState = {
+const actions_1 = require("../actions");
+const initialState = {
     currentUser: null,
     isAuthenticated: false,
 };
-var authReducer = function (state, action) {
-    if (state === void 0) { state = initialState; }
+const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case actions_1.ActionTypes.loginUser:
         case actions_1.ActionTypes.persistUser:

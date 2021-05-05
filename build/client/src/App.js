@@ -1,19 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -37,23 +22,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importStar(require("react"));
-var Navbar_1 = __importDefault(require("./components/layout/Navbar"));
-var Routes_1 = __importDefault(require("./components/routing/Routes"));
-var Alerts_1 = __importDefault(require("./components/utils/Alerts"));
-var App = /** @class */ (function (_super) {
-    __extends(App, _super);
-    function App() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.state = {};
-        return _this;
+const react_1 = __importStar(require("react"));
+const Navbar_1 = __importDefault(require("./components/layout/Navbar"));
+const Routes_1 = __importDefault(require("./components/routing/Routes"));
+const Alerts_1 = __importDefault(require("./components/utils/Alerts"));
+class App extends react_1.Component {
+    constructor() {
+        super(...arguments);
+        this.state = {};
     }
-    App.prototype.render = function () {
+    render() {
         return (react_1.default.createElement("div", null,
             react_1.default.createElement(Navbar_1.default, null),
             react_1.default.createElement(Alerts_1.default, null),
             react_1.default.createElement(Routes_1.default, null)));
-    };
-    return App;
-}(react_1.Component));
+    }
+}
 exports.default = App;

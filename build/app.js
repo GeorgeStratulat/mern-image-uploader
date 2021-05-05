@@ -4,18 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
-var express_1 = __importDefault(require("express"));
-var helmet_1 = __importDefault(require("helmet"));
-var morgan_1 = __importDefault(require("morgan"));
-var express_mongo_sanitize_1 = __importDefault(require("express-mongo-sanitize"));
-var hpp_1 = __importDefault(require("hpp"));
-var express_session_1 = __importDefault(require("express-session"));
-var appError_1 = require("./utils/appError");
-var globalErrorHandler_1 = require("./utils/globalErrorHandler");
-var controllers_1 = require("./controllers");
-var imagesController_1 = require("./controllers/imagesController");
-var cors = require("cors");
-var path = require("path");
+const express_1 = __importDefault(require("express"));
+const helmet_1 = __importDefault(require("helmet"));
+const morgan_1 = __importDefault(require("morgan"));
+const express_mongo_sanitize_1 = __importDefault(require("express-mongo-sanitize"));
+const hpp_1 = __importDefault(require("hpp"));
+const express_session_1 = __importDefault(require("express-session"));
+const appError_1 = require("./utils/appError");
+const globalErrorHandler_1 = require("./utils/globalErrorHandler");
+const controllers_1 = require("./controllers");
+const imagesController_1 = require("./controllers/imagesController");
+const cors = require("cors");
+const path = require("path");
 exports.app = express_1.default();
 //////////////////////// Global Middlewares//////////////////////////
 // Add htp headers that secure the server
@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === "development") {
 }
 if (process.env.NODE_ENV === "production") {
     exports.app.use(express_1.default.static("client/build"));
-    exports.app.get("*", function (request, response) {
+    exports.app.get("*", (request, response) => {
         response.sendFile(path.join(__dirname, "client/build", "index.html"));
     });
 }
@@ -46,7 +46,7 @@ if (process.env.SESSION_SECRET) {
     }));
 }
 else {
-    exports.app.use(function (req, res, next) {
+    exports.app.use((req, res, next) => {
         next(new appError_1.AppError("missing session secret", 500));
     });
 }
@@ -59,7 +59,7 @@ exports.app.use(express_mongo_sanitize_1.default());
 exports.app.use(hpp_1.default({
     whitelist: [], // add http parameters used
 }));
-exports.app.use(cors({ origin: "http://localhost:3000" }));
+exports.app.use(cors({ origin: "https://agile-mesa-42088.herokuapp.com/" }));
 // Route Handlers
 exports.app.use("/api", controllers_1.authRoute, controllers_1.userRoute);
 exports.app.use("/images", imagesController_1.imagesController);

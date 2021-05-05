@@ -1,47 +1,36 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.globalErrorHandler = void 0;
-var appError_1 = require("./appError");
+const appError_1 = require("./appError");
 // MonogoDB and mongoose use export Error types as Classes
 // Invalid ids
-var handleCastErrorDB = function (err) {
-    var message = "Invalid " + err.path + ": " + err.value + "."; //Invalid _id : wwwwwwww
+const handleCastErrorDB = (err) => {
+    const message = `Invalid ${err.path}: ${err.value}.`; //Invalid _id : wwwwwwww
     return new appError_1.AppError(message, 400);
 };
 // Duplicate fields
-var handleDuplicateFieldsDB = function (err) {
+const handleDuplicateFieldsDB = (err) => {
     // regular expressions is always between two slashes '/'
-    var value = err.errmsg.match(/(["'])(\\?.)*?\1/); //reg expression between quotation marks
-    var message = "Duplicate field value: " + 
+    const value = err.errmsg.match(/(["'])(\\?.)*?\1/); //reg expression between quotation marks
+    const message = `Duplicate field value: ${
     //value returns an array
-    value[0] + ". Please use another value!";
+    value[0]}. Please use another value!`;
     return new appError_1.AppError(message, 400);
 };
 // Validation DB errors
-var handleValidationErrorDB = function (err) {
+const handleValidationErrorDB = (err) => {
     // Object.values converts object property values into an array with the object as argument
     // err.errors return an object of errors with properties where theres validation errors
-    var errors = Object.values(err.errors)
-        .map(function (el) { return el.message; })
+    const errors = Object.values(err.errors)
+        .map((el) => el.message)
         .join(". ");
     console.log(errors);
     // Join array into a single string
-    var message = "Invalid input data. " + errors;
+    const message = `Invalid input data. ${errors}`;
     return new appError_1.AppError(message, 400);
 };
 // JWT errors
-var handleJWTError = function (err) {
+const handleJWTError = (err) => {
     return new appError_1.AppError("Invalid token. Please log in again!", 401);
 };
 // Custom type guards
@@ -60,7 +49,7 @@ function isDuplicateError(err) {
 function isJSONError(err) {
     return err.name === "JsonWebTokenError";
 }
-var sendErrorProd = function (err, res) {
+const sendErrorProd = (err, res) => {
     // Operational, trusted error: send message to client
     // Production mode: Only send meaningful,concise and easy to understand errors
     if (isIAppError(err)) {
@@ -80,7 +69,7 @@ var sendErrorProd = function (err, res) {
         });
     }
 };
-var sendErrorDev = function (err, res) {
+const sendErrorDev = (err, res) => {
     res.status(err.statusCode).json({
         status: err.status,
         message: err.message,
@@ -89,17 +78,17 @@ var sendErrorDev = function (err, res) {
     });
 };
 // Error handler passed from controllers
-var globalErrorHandler = function (err, req, res, next) {
+const globalErrorHandler = (err, req, res, next) => {
     // Define additional error properties
     // Union types doesn't let redefining of parameters (err)
-    var newError = __assign({}, err);
+    let newError = Object.assign({}, err);
     if (process.env.NODE_ENV === "development") {
         // destructuring doesnt work with error
         if (isIAppError(err)) {
             sendErrorDev(err, res);
         }
         else {
-            newError = __assign(__assign({}, newError), { status: "error", statusCode: 500 });
+            newError = Object.assign(Object.assign({}, newError), { status: "error", statusCode: 500 });
             sendErrorDev(newError, res);
         }
     }

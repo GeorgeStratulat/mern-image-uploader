@@ -1,30 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -48,44 +22,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importStar(require("react"));
-var react_redux_1 = require("react-redux");
-var actions_1 = require("../../actions");
-var Spinner_1 = __importDefault(require("../utils/Spinner/Spinner"));
-var react_router_dom_1 = require("react-router-dom");
-var Login = /** @class */ (function (_super) {
-    __extends(Login, _super);
-    function Login() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.state = {
+const react_1 = __importStar(require("react"));
+const react_redux_1 = require("react-redux");
+const actions_1 = require("../../actions");
+const Spinner_1 = __importDefault(require("../utils/Spinner/Spinner"));
+const react_router_dom_1 = require("react-router-dom");
+class Login extends react_1.Component {
+    constructor() {
+        super(...arguments);
+        this.state = {
             email: "",
             password: "",
             loading: false,
-            pathname: _this.props.history.location.pathname,
+            pathname: this.props.history.location.pathname,
         };
-        _this.handleChange = function (e) {
-            var _a;
-            _this.setState(__assign(__assign({}, _this.state), (_a = {}, _a[e.target.name] = e.target.value, _a)));
+        this.handleChange = (e) => {
+            this.setState(Object.assign(Object.assign({}, this.state), { [e.target.name]: e.target.value }));
         };
-        _this.handleSubmit = function (e) {
+        this.handleSubmit = (e) => {
             e.preventDefault();
-            var _a = _this.state, email = _a.email, password = _a.password;
+            const { email, password } = this.state;
             // Set loading to true which adds spinner
-            _this.setState({ loading: true });
+            this.setState({ loading: true });
             // Login user
-            _this.props.postLogin(email, password).then(function (res) {
+            this.props.postLogin(email, password).then((res) => {
                 // Refresh form if authentication fails
                 // isAuthenticated is only updated after updating the store's state
                 // This callback is called straight after the action which is before the latter
-                if (_this.props.history.location.pathname === _this.state.pathname) {
-                    _this.setState({ email: "", password: "", loading: false });
+                if (this.props.history.location.pathname === this.state.pathname) {
+                    this.setState({ email: "", password: "", loading: false });
                 }
             });
         };
-        return _this;
     }
-    Login.prototype.render = function () {
-        var _a = this.state, email = _a.email, password = _a.password;
+    render() {
+        const { email, password } = this.state;
         return (react_1.default.createElement("div", { className: "container" },
             react_1.default.createElement("div", { className: "row" },
                 react_1.default.createElement("div", { className: "col-lg-10 col-xl-9 mx-auto" },
@@ -100,10 +71,9 @@ var Login = /** @class */ (function (_super) {
                             react_1.default.createElement("p", { className: "centered-p" },
                                 "Don't have an account? ",
                                 react_1.default.createElement(react_router_dom_1.Link, { to: "/register" }, "Sign up")))))))));
-    };
-    return Login;
-}(react_1.Component));
-var mapStateToProps = function (state) { return ({
+    }
+}
+const mapStateToProps = (state) => ({
     auth: state.auth,
-}); };
+});
 exports.default = react_redux_1.connect(mapStateToProps, { postLogin: actions_1.postLogin })(Login);
