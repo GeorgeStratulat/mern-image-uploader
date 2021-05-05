@@ -4,9 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start:build": "tsc -w",
-		"start:run": " server.ts",
-		"start": "node --es-module-specifier-resolution=node server.ts",
+		"start": "ts-node server.ts",
 		"build": "cd client && npm run build",
 		"install-client": "cd client && npm install",
 		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run install-client && npm run build",
@@ -14,7 +12,6 @@
 		"prod": "set NODE_ENV=production&& concurrently \"npm run start\" \"npm run client\"",
 		"client": "cd client && npm start"
 	},
-	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/GeorgeStratulat/mern-image-uploader.git"
