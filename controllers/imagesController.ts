@@ -40,7 +40,7 @@ imagesController.post(
         req.session.user._id,
         {
           $push: {
-            images: "http://" + req.headers.host + req.file.path,
+            images: "https://" + req.headers.host + req.file.path,
           },
         },
         { new: true, upsert: true }
