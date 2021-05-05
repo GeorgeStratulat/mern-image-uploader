@@ -8,6 +8,7 @@ import { AppError } from "./utils/appError";
 import { globalErrorHandler } from "./utils/globalErrorHandler";
 import { userRoute, authRoute } from "./controllers";
 import { imagesController } from "./controllers/imagesController";
+const cors = require("cors");
 const path = require("path");
 
 export const app = express();
@@ -19,14 +20,6 @@ app.use(helmet());
 // Development logging
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
-}
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-  // Handle React routing, return all requests to React app
-  app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "client/build", "index.html"));
-  });
 }
 
 // Converts incoming json data to js object ---- Body parser that reads data from body into req.body
@@ -65,6 +58,7 @@ app.use(
     whitelist: [], // add http parameters used
   })
 );
+app.use(cors({ origin: "http://localhost:3000" }));
 
 // Route Handlers
 app.use("/api", authRoute, userRoute);
