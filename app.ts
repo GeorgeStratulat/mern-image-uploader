@@ -23,18 +23,16 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Converts incoming json data to js object ---- Body parser that reads data from body into req.body
-app.use(express.json({ limit: "10kb" })); // package will parse 10kb into meaningful data
-
+app.use(express.json({ limit: "50MB" })); // package will parse 10kb into meaningful data
+app.set("trust proxy", 1);
 if (process.env.SESSION_SECRET) {
   app.use(
     session({
       secret: process.env.SESSION_SECRET,
       name: "sid",
-      resave: false, // prevents resave even if not modified
       saveUninitialized: false,
       cookie: {
-        // maxAge: 36000, // remove if we want it as a session
-        sameSite: true, // 'strict'
+        // maxAge: 1000 * 60 * 60 * 60, // remove if we want it as a session
         secure: process.env.NODE_ENV === "production" ? true : false,
       },
     })
