@@ -8,6 +8,7 @@ import { AppError } from "./utils/appError";
 import { globalErrorHandler } from "./utils/globalErrorHandler";
 import { userRoute, authRoute } from "./controllers";
 import { imagesController } from "./controllers/imagesController";
+const path = require("path");
 
 export const app = express();
 
@@ -22,6 +23,10 @@ if (process.env.NODE_ENV === "development") {
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
+  // Handle React routing, return all requests to React app
+  app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  });
 }
 
 // Converts incoming json data to js object ---- Body parser that reads data from body into req.body
