@@ -2,10 +2,11 @@ import { Router } from "express";
 import { AppError } from "./../utils/appError";
 import { Users } from "../models/Users";
 
+const path = require("path");
 const multer = require("multer");
 const storage = multer.diskStorage({
   destination: (req: Request, file: Express.Multer.File, cb: any) => {
-    cb(null, "./uploads");
+    cb(null, path.resolve(__dirname, "../build"));
   },
   filename: (req: Request, file: Express.Multer.File, cb: any) => {
     cb(null, Date.now() + file.originalname.replace(/\s+/g, ""));
