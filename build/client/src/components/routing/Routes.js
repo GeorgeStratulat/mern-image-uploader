@@ -49,6 +49,7 @@ var Login_1 = __importDefault(require("../auth/Login"));
 var Dashboard_1 = __importDefault(require("../pages/Dashboard"));
 var Register_1 = __importDefault(require("../auth/Register"));
 var PublicRoute_1 = __importDefault(require("./PublicRoute"));
+var store_1 = require("../../store");
 exports.pubRoutesArr = [
     { name: "Home", path: "/", component: Home_1.default, nav: true },
     { name: "Login", path: "/login", component: Login_1.default, nav: true },
@@ -64,7 +65,7 @@ var Routes = /** @class */ (function (_super) {
     }
     Routes.prototype.componentDidMount = function () {
         var _this = this;
-        axios_1.default.get("/api/auth/isloggedin")
+        axios_1.default.get(store_1.axiosURL + "/api/auth/isloggedin")
             .then(function (res) {
             if (!res.data) {
                 _this.props.sessionExpired();

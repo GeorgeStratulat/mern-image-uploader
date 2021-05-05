@@ -34,6 +34,7 @@ var react_router_1 = require("react-router");
 var axios_1 = __importDefault(require("axios"));
 var react_redux_1 = require("react-redux");
 var actions_1 = require("../../actions");
+var store_1 = require("../../store");
 var PrivateRoute = /** @class */ (function (_super) {
     __extends(PrivateRoute, _super);
     function PrivateRoute() {
@@ -43,7 +44,7 @@ var PrivateRoute = /** @class */ (function (_super) {
         var _this = this;
         // Log user out if session expires
         if (this.props.isAuthenticated) {
-            axios_1.default.get("/api/auth/isloggedin")
+            axios_1.default.get(store_1.axiosURL + "/api/auth/isloggedin")
                 .then(function (res) {
                 if (!res.data) {
                     _this.props.sessionExpired();
@@ -62,7 +63,7 @@ var PrivateRoute = /** @class */ (function (_super) {
         var _this = this;
         // Log user out if session expires
         if (this.props.isAuthenticated) {
-            axios_1.default.get("/api/auth/isloggedin")
+            axios_1.default.get(store_1.axiosURL + "/api/auth/isloggedin")
                 .then(function (res) {
                 if (res.data === false) {
                     _this.props.sessionExpired();

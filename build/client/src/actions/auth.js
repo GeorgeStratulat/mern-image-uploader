@@ -44,6 +44,7 @@ var axios_1 = __importDefault(require("axios"));
 var types_1 = require("./types");
 var catchAsync_1 = __importDefault(require("../utils/catchAsync"));
 var alerts_1 = require("./alerts");
+var store_1 = require("../store");
 var persistUser = function (user) {
     return catchAsync_1.default(function (dispatch) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -65,7 +66,7 @@ var postLogin = function (email, password) {
             switch (_a.label) {
                 case 0:
                     console.log("logging in with ", email);
-                    return [4 /*yield*/, axios_1.default.post("/api/auth/login", {
+                    return [4 /*yield*/, axios_1.default.post(store_1.axiosURL + "/api/auth/login", {
                             email: email,
                             password: password,
                         })];
@@ -87,7 +88,7 @@ var getLogout = function () {
     return catchAsync_1.default(function (dispatch) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1.default.get("/api/auth/logout")];
+                case 0: return [4 /*yield*/, axios_1.default.get(store_1.axiosURL + "/api/auth/logout")];
                 case 1:
                     _a.sent();
                     dispatch({ type: types_1.ActionTypes.logoutUser });
@@ -102,7 +103,7 @@ var registerUser = function (form) {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1.default.post("/api/users/register", form)];
+                case 0: return [4 /*yield*/, axios_1.default.post(store_1.axiosURL + "/api/users/register", form)];
                 case 1:
                     res = _a.sent();
                     dispatch({

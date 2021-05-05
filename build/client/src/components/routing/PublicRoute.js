@@ -53,6 +53,7 @@ var react_router_dom_1 = require("react-router-dom");
 var react_redux_1 = require("react-redux");
 var actions_1 = require("../../actions");
 var axios_1 = __importDefault(require("axios"));
+var store_1 = require("../../store");
 var PublicRoute = /** @class */ (function (_super) {
     __extends(PublicRoute, _super);
     function PublicRoute() {
@@ -62,7 +63,7 @@ var PublicRoute = /** @class */ (function (_super) {
         var _this = this;
         // Log user out if session expires
         if (this.props.isAuthenticated) {
-            axios_1.default.get("/api/auth/isloggedin").then(function (res) {
+            axios_1.default.get(store_1.axiosURL + "/api/auth/isloggedin").then(function (res) {
                 if (res.data === false) {
                     _this.props.sessionExpired();
                 }

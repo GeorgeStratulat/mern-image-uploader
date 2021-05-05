@@ -22,6 +22,13 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (request, response) => {
+    response.sendFile(path.join(__dirname, "client/build", "index.html"));
+  });
+}
+
 // Converts incoming json data to js object ---- Body parser that reads data from body into req.body
 app.use(express.json({ limit: "10kb" })); // package will parse 10kb into meaningful data
 
@@ -58,7 +65,7 @@ app.use(
     whitelist: [], // add http parameters used
   })
 );
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "https://agile-mesa-42088.herokuapp.com/" }));
 
 // Route Handlers
 app.use("/api", authRoute, userRoute);

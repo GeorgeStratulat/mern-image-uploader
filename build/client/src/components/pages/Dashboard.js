@@ -43,6 +43,7 @@ var axios_1 = __importDefault(require("axios"));
 var react_bootstrap_1 = require("react-bootstrap");
 var actions_1 = require("../../actions");
 var Spinner_1 = __importDefault(require("../utils/Spinner/Spinner"));
+var store_1 = require("../../store");
 var Dashboard = /** @class */ (function (_super) {
     __extends(Dashboard, _super);
     function Dashboard() {
@@ -66,7 +67,7 @@ var Dashboard = /** @class */ (function (_super) {
             var fd = new FormData();
             fd.append("image", image, imageName);
             axios_1.default
-                .post("/images/add", fd, {
+                .post(store_1.axiosURL + "/images/add", fd, {
                 onUploadProgress: function () {
                     _this.setState({ loading: true });
                 },
