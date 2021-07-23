@@ -6,6 +6,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm test`
+
+Runs the tests for the server. 
+// Client side unit tests to be added.
+
 ### `npm start`
 
 Runs the node.js server development mode.<br />
