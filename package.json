@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "nodemon server.ts",
+		"test": "jest --verbose",
 		"client": "cd client && npm start",
 		"dev": "concurrently \"npm run start\" \"npm run client\"",
 		"prod": "set NODE_ENV=production&& concurrently \"npm run start\" \"npm run client\"",
@@ -12,6 +13,20 @@
 	},
 	"engines": {
 		"node": "14.x.x"
+	},
+	"jest": {
+		"testEnvironment": "node",
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js",
+			"json",
+			"jsx",
+			"node"
+		],
+		"transformIgnorePatterns": [
+			"node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
+		]
 	},
 	"repository": {
 		"type": "git",
@@ -38,6 +53,7 @@
 		"@types/multer": "^1.4.5",
 		"@types/nodemailer": "^6.2.2",
 		"@types/pug": "^2.0.4",
+		"@types/react-test-renderer": "^17.0.1",
 		"@types/validator": "^10.11.3",
 		"bcryptjs": "^2.4.3",
 		"concurrently": "^5.0.0",
@@ -50,6 +66,7 @@
 		"helmet": "^3.21.2",
 		"hpp": "^0.2.2",
 		"html-to-text": "^5.1.1",
+		"mockingoose": "^2.15.2",
 		"mongoose": "^5.7.9",
 		"morgan": "^1.10.0",
 		"multer": "^1.4.2",
@@ -59,8 +76,15 @@
 		"pug": "^2.0.4",
 		"redis": "^2.8.0",
 		"reflect-metadata": "^0.1.13",
+		"ts-jest": "^27.0.4",
 		"ts-node": "^9.1.1",
 		"typescript": "^4.2.4",
 		"validator": "^12.0.0"
+	},
+	"devDependencies": {
+		"@shelf/jest-mongodb": "^2.0.1",
+		"@types/jest": "^26.0.24",
+		"jest": "^27.0.6",
+		"react-test-renderer": "^17.0.2"
 	}
 }
