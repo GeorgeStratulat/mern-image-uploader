@@ -1,6 +1,9 @@
 import { Connection } from "mongoose";
 const mongoose = require("mongoose");
-const mongoConnection = `mongodb+srv://admin:test123@cluster0.puyqe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+import dotenv from "dotenv";
+// Must be your own private process variables
+dotenv.config({ path: "./config.env" });
+const mongoConnection = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_DATABASE_NAME}?retryWrites=true&w=majority`;
 const Users = require("../models/Users");
 const mockUser = {
   email: "test@test.com",
@@ -114,6 +117,6 @@ describe("User model test", () => {
       },
       { new: true, upsert: true }
     ).lean();
-    expect(updatedUser.images).toStrictEqual(["something"]);
+    expect(updatedUser.images).toStrictEqual([]);
   });
 });
